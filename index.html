@@ -215,6 +215,8 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
 .cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--ink-soft);text-align:center}
 .cart-item{display:flex;gap:14px;border-bottom:1px solid var(--line);padding-bottom:16px}
 .cart-item img{width:70px;height:88px;object-fit:cover;background:var(--bg-alt)}
+.ci-mini-tee{width:70px;height:88px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:2px}
+.ci-mini-tee img{width:60%;height:60%;object-fit:contain;background:transparent}
 .ci-info{flex:1}
 .ci-name{font-weight:700;font-size:.88rem;margin-bottom:3px}
 .ci-meta{font-size:.76rem;color:var(--ink-soft);margin-bottom:8px}
@@ -261,46 +263,57 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
 .confirm-summary{text-align:left;border:1px solid var(--line);padding:16px 18px;margin:0 auto 22px;max-width:420px;font-size:.85rem}
 .confirm-summary .row{display:flex;justify-content:space-between;padding:5px 0}
 
-/* DESIGNER */
-#designerModal .modal{max-width:1180px;padding:0}
-.designer-layout{display:grid;grid-template-columns:1fr 360px;min-height:640px}
-.designer-canvas-area{background:var(--bg-alt);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 18px;gap:14px;position:relative}
-.designer-toggle{display:flex;gap:0;border:1px solid var(--line);background:var(--surface)}
-.designer-toggle button{padding:9px 20px;font-size:.78rem;font-weight:700;min-height:40px}
-.designer-toggle button.active{background:var(--ink);color:#fff}
-.canvas-shell{background:var(--surface);box-shadow:0 10px 40px rgba(0,0,0,.08);width:100%;max-width:380px;touch-action:none;position:relative;line-height:0}
-.canvas-shell canvas{touch-action:none}
-.canvas-hint{font-size:.74rem;color:var(--ink-soft);text-align:center;max-width:320px}
-.size-slider-row{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:12px;opacity:.4;pointer-events:none;transition:opacity .2s}
-.size-slider-row.active{opacity:1;pointer-events:auto}
-.size-slider-row span{font-size:.76rem;font-weight:700;white-space:nowrap}
-.size-slider-row input[type=range]{flex:1;height:34px}
-.designer-panel{padding:24px 22px;border-left:1px solid var(--line);overflow-y:auto;max-height:92vh;display:flex;flex-direction:column;gap:22px}
+/* CUSTOMIZER — pick a color + pick a pre-made print, pure CSS shirt mockup */
+#customizeModal .modal{max-width:1100px;padding:0}
+.cz-layout{display:grid;grid-template-columns:1fr 380px;min-height:600px}
+.cz-preview{background:var(--bg-alt);display:flex;align-items:center;justify-content:center;padding:30px 18px}
+.cz-panel{padding:26px 24px;border-left:1px solid var(--line);overflow-y:auto;max-height:92vh;display:flex;flex-direction:column;gap:22px}
 .dp-block h4{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
 .swatches{display:flex;gap:10px;flex-wrap:wrap}
-.swatch{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
-.swatch.selected{border-color:var(--accent);box-shadow:0 0 0 2px #fff inset}
-.dp-tools{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.dp-tools button{border:1px solid var(--line);padding:13px 8px;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px}
-.dp-tools button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-.dp-tools button:hover:not(.active){border-color:var(--ink)}
-.brush-row{display:flex;align-items:center;gap:10px;margin-top:10px}
-.brush-row input[type=range]{flex:1;height:34px}
-.upload-label{display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px dashed var(--line);padding:18px;font-size:.82rem;font-weight:700;cursor:pointer;text-align:center;min-height:52px}
-.upload-label:hover{border-color:var(--ink)}
-.load-code-row{display:flex;gap:8px}
-.load-code-row input{flex:1;border:1px solid var(--line);padding:11px;text-transform:uppercase;min-height:44px}
-.designer-save-result{border:1px solid var(--ink);padding:14px;font-size:.85rem;display:none}
-.designer-save-result.show{display:block}
-.designer-code{font-family:'Archivo Black',sans-serif;font-size:1.1rem;margin:6px 0}
-.dp-block .field input{min-height:44px}
-@media(max-width:900px){.designer-layout{grid-template-columns:1fr}.designer-panel{border-left:none;border-top:1px solid var(--line);max-height:none}}
+.swatch{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);cursor:pointer;position:relative}
+.swatch.selected{border-color:var(--accent)}
+.swatch.selected::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;mix-blend-mode:difference;font-size:.8rem}
+.swatch-name{font-size:.72rem;color:var(--ink-soft);margin-top:6px}
+
+/* the shirt itself, built entirely from CSS shapes so it always renders cleanly */
+.tee-mock{position:relative;width:100%;max-width:300px;aspect-ratio:300/340;margin:0 auto}
+.tee-sleeve{position:absolute;top:14%;width:27%;height:27%;background:var(--shirt-color,#0E0E0E);transition:background .25s}
+.tee-sleeve-l{left:0;clip-path:polygon(100% 0%,100% 58%,18% 100%,0% 66%,38% 0%)}
+.tee-sleeve-r{right:0;clip-path:polygon(0% 0%,0% 58%,82% 100%,100% 66%,62% 0%)}
+.tee-body{position:absolute;left:21%;right:21%;top:16%;bottom:4%;background:var(--shirt-color,#0E0E0E);border-radius:5px 5px 2px 2px;
+  box-shadow:inset 0 -26px 34px -20px rgba(0,0,0,.28), inset 0 18px 22px -16px rgba(255,255,255,.14), inset 22px 0 26px -22px rgba(0,0,0,.16), inset -22px 0 26px -22px rgba(0,0,0,.16);
+  transition:background .25s}
+.tee-collar{position:absolute;left:34%;right:34%;top:0;height:9%;background:var(--bg-alt);border-radius:0 0 50% 50%}
+.tee-collar::after{content:'';position:absolute;left:-6%;right:-6%;top:78%;bottom:-260%;border:2px solid rgba(0,0,0,.14);border-top:none;border-radius:0 0 50% 50%}
+.tee-print-zone{position:absolute;left:30%;right:30%;top:26%;height:38%;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.tee-print-zone img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.18))}
+.tee-print-placeholder{font-size:.72rem;color:var(--ink-soft);text-align:center;max-width:80%;opacity:.7}
+
+.design-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.design-thumb{border:2px solid var(--line);cursor:pointer;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:var(--surface);padding:8px;position:relative;transition:border-color .2s}
+.design-thumb img{max-width:100%;max-height:100%;object-fit:contain}
+.design-thumb.selected{border-color:var(--ink)}
+.design-thumb.selected::after{content:'✓';position:absolute;top:4px;right:4px;width:18px;height:18px;background:var(--ink);color:#fff;border-radius:50%;font-size:.6rem;display:flex;align-items:center;justify-content:center}
+.design-thumb .dt-name{position:absolute;left:0;right:0;bottom:-20px;font-size:.66rem;text-align:center;color:var(--ink-soft)}
+.cz-price{border:1px solid var(--line);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:700}
+@media(max-width:900px){.cz-layout{grid-template-columns:1fr}.cz-panel{border-left:none;border-top:1px solid var(--line);max-height:none}}
 @media(max-width:640px){
-  #designerModal{padding:0}
-  #designerModal .modal{max-width:100%;width:100%;height:100%;max-height:100%;border-radius:0}
-  .designer-layout{min-height:100%}
-  .designer-panel{padding-bottom:40px}
+  #customizeModal{padding:0}
+  #customizeModal .modal{max-width:100%;width:100%;height:100%;max-height:100%;border-radius:0}
+  .cz-layout{min-height:100%}
+  .cz-preview{padding:26px 18px 10px}
+  .cz-panel{padding-bottom:40px}
 }
+
+/* LADIES TEASER */
+.ladies-banner{position:relative;height:60vh;min-height:400px;overflow:hidden}
+.ladies-banner img{width:100%;height:100%;object-fit:cover}
+.ladies-banner .ov{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,.1) 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:44px;color:#fff}
+.soon-badge{display:inline-block;background:var(--accent);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;margin-bottom:14px;width:fit-content}
+.ladies-banner h2{font-family:'Archivo Black',sans-serif;font-size:clamp(1.8rem,4vw,3rem);text-transform:uppercase}
+.ladies-banner p{max-width:420px;margin-top:10px;color:#e6e3d8;font-size:.9rem}
+.ladies-tags{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.ladies-tags span{border:1px solid rgba(255,255,255,.4);padding:6px 14px;font-size:.74rem;font-weight:600}
 
 /* POLICY MODAL */
 #policyModal .modal{max-width:640px;padding:44px 40px}
@@ -394,10 +407,21 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
   <section class="wrap" style="padding-bottom:2px" id="customize">
     <div class="custom-cta">
       <div>
-        <h2 class="disp">Design<br>Your Own</h2>
-        <p>Upload art, sketch freehand, pick your shirt and ink color — save it and order in one flow.</p>
+        <h2 class="disp">Make It<br>Yours</h2>
+        <p>Pick your shirt color, pick a print — see it on the shirt before you order.</p>
       </div>
-      <button class="btn-outline on-dark" onclick="openDesigner()">Start Designing →</button>
+      <button class="btn-outline on-dark" onclick="openCustomizer()">Start Customizing →</button>
+    </div>
+  </section>
+
+  <section class="ladies-banner" id="ladies">
+    <img id="ladiesImg" src="" alt=""/>
+    <div class="ov">
+      <span class="soon-badge">Coming Soon</span>
+      <h2 id="ladiesTitle"></h2>
+      <p id="ladiesSubtitle"></p>
+      <div class="ladies-tags" id="ladiesTags"></div>
+      <button class="btn-outline on-dark" onclick="openLadiesNotify()">Notify Me When It Drops</button>
     </div>
   </section>
 
@@ -426,6 +450,7 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
       <div class="footer-links">
         <a href="#products">All Products</a>
         <a href="#customize">Custom T-Shirt</a>
+        <a href="#ladies">For The Ladies</a>
       </div>
     </div>
     <div>
@@ -442,7 +467,6 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
       <div class="footer-links">
         <a id="footerPhone" href="#"></a>
         <a id="footerEmail" href="#"></a>
-        <button onclick="openLoadDesign()">Load a Saved Design</button>
       </div>
     </div>
   </div>
@@ -515,65 +539,49 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
   </div>
 </div>
 
-<!-- DESIGNER -->
-<div class="modal-overlay" id="designerModal">
+<!-- CUSTOMIZE (color + pre-made print picker, no freehand design tools) -->
+<div class="modal-overlay" id="customizeModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('designerModal')">✕</button>
-    <div class="designer-layout">
-      <div class="designer-canvas-area">
-        <div class="designer-toggle">
-          <button id="sideFrontBtn" class="active" onclick="switchDesignerSide('front')">Front</button>
-          <button id="sideBackBtn" onclick="switchDesignerSide('back')">Back</button>
-        </div>
-        <div class="canvas-shell"><canvas id="designerCanvas"></canvas></div>
-        <div class="canvas-hint">Tap your design to select it, drag to move it, use the slider below to resize.</div>
-        <div class="size-slider-row" id="sizeSliderRow">
-          <span>Size</span>
-          <input type="range" id="designSizeSlider" min="20" max="220" value="100" oninput="updateActiveObjectScale()"/>
+    <button class="modal-close" onclick="closeModal('customizeModal')">✕</button>
+    <div class="cz-layout">
+      <div class="cz-preview">
+        <div class="tee-mock" id="teeMock" style="--shirt-color:#0E0E0E">
+          <div class="tee-sleeve tee-sleeve-l"></div>
+          <div class="tee-sleeve tee-sleeve-r"></div>
+          <div class="tee-body">
+            <div class="tee-collar"></div>
+            <div class="tee-print-zone" id="teePrintZone">
+              <span class="tee-print-placeholder" id="teePrintPlaceholder">Pick a print from the right →</span>
+              <img id="teeDesignImg" src="" alt="" style="display:none"/>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="designer-panel">
+      <div class="cz-panel">
         <div class="dp-block">
           <h4>Shirt Color</h4>
-          <div class="swatches" id="shirtSwatches"></div>
+          <div class="swatches" id="czColorSwatches"></div>
         </div>
         <div class="dp-block">
-          <h4>Print / Ink Color</h4>
-          <div class="swatches" id="printSwatches"></div>
+          <h4>Choose a Print</h4>
+          <div class="design-gallery" id="czDesignGallery"></div>
         </div>
         <div class="dp-block">
-          <h4>Tools</h4>
-          <div class="dp-tools">
-            <label class="upload-label" style="grid-column:1/-1">
-              ⇪ Upload Image
-              <input type="file" accept="image/*" class="sr-only" id="designUploadInput" onchange="handleDesignUpload(event)"/>
-            </label>
-            <button id="drawToolBtn" onclick="toggleDrawMode()">✎ Draw</button>
-            <button onclick="deleteActiveObject()">🗑 Delete</button>
-            <button onclick="designerUndo()">↺ Undo</button>
-            <button onclick="designerRedo()">↻ Redo</button>
-            <button onclick="resetDesigner()" style="grid-column:1/-1">Reset Design</button>
-          </div>
-          <div class="brush-row"><span style="font-size:.76rem">Brush</span><input type="range" id="brushSize" min="2" max="30" value="6" oninput="updateBrushSize()"/></div>
+          <h4>Size</h4>
+          <div class="size-grid" id="czSizes"></div>
         </div>
         <div class="dp-block">
-          <h4>Save Your Design</h4>
-          <div class="field" style="margin-bottom:8px"><input id="designerName" placeholder="Your name"/></div>
-          <div class="field" style="margin-bottom:10px"><input id="designerPhone" placeholder="Phone number"/></div>
-          <button class="btn-main btn-block" onclick="saveDesign()">Save Design</button>
-          <div class="designer-save-result" id="designerSaveResult">
-            <div>Your design has been saved.</div>
-            <div class="designer-code" id="designerCodeOut"></div>
-            <button class="btn-outline btn-block" style="margin-top:8px" onclick="addDesignToCart()">Add to Cart — <span id="customPriceLabel"></span></button>
+          <div class="qty-row" style="margin-bottom:0">
+            <span class="pm-block-label" style="margin:0">Qty</span>
+            <div class="qty-ctrl"><button onclick="changeCzQty(-1)">−</button><span id="czQty">1</span><button onclick="changeCzQty(1)">+</button></div>
           </div>
         </div>
         <div class="dp-block">
-          <h4>Load a Saved Design</h4>
-          <div class="load-code-row">
-            <input id="loadDesignCodeInput" placeholder="e.g. 3ABAS-8F2LQ9"/>
-            <button class="btn-outline" onclick="loadDesignByCode()">Load</button>
-          </div>
+          <h4>Note (optional)</h4>
+          <div class="field"><textarea id="czNote" rows="2" placeholder="Anything you'd like us to know"></textarea></div>
         </div>
+        <div class="cz-price"><span>Total</span><span id="czPrice">—</span></div>
+        <button class="btn-main btn-block" onclick="addCustomToCart()">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -602,18 +610,15 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
 <script>
 /* ============================================================
    CONFIG — replace with your deployed Apps Script Web App URL
 ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbxyatIL3i1Zjppn14rjp-PVDgLMJQpw-ZbK6Ru78VLnv-cvVWzzc8W226FyP9suD-Ahjg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzbqi4GscDRG39pdQ7_Vx70mQK61h28do-V3tz0BA_gycgEsSIOJZxJdhbmN7ZtyEg-/exec";
 
 const SIZES = ['XS','S','M','L','XL','XXL'];
-const SHIRT_COLORS = ['#0E0E0E','#F5F3EE','#5A564C','#E1391F','#2B3A55'];
-const PRINT_COLORS = ['#F5F3EE','#0E0E0E','#E1391F','#2B3A55','#C9A227'];
 
-let STORE = { products:[], categories:[], settings:{}, shipping:[], paymentMethods:[], homepage:[], policies:{} };
+let STORE = { products:[], categories:[], settings:{}, shipping:[], paymentMethods:[], homepage:[], policies:{}, customDesigns:[] };
 let cart = JSON.parse(localStorage.getItem('3abas_cart') || '[]');
 let activeCategory = 'all';
 let currentProduct = null, pmSelectedSize = '', pmQty = 1;
@@ -657,6 +662,7 @@ async function boot() {
   renderHero();
   renderBanners();
   renderAbout();
+  renderLadies();
   renderSocial();
   renderFooter();
   applyFilters();
@@ -706,6 +712,20 @@ function renderBanners() {
 function renderAbout() {
   const p = STORE.policies.about;
   if (p) { document.getElementById('aboutTitle').textContent = p.title; document.getElementById('aboutContent').textContent = p.content; }
+}
+
+function renderLadies() {
+  const s = STORE.settings;
+  document.getElementById('ladiesImg').src = s.LadiesImage || '';
+  document.getElementById('ladiesTitle').textContent = s.LadiesTitle || 'For The Ladies';
+  document.getElementById('ladiesSubtitle').textContent = s.LadiesSubtitle || '';
+  const tags = (s.LadiesTags || '').split(',').map(t => t.trim()).filter(Boolean);
+  document.getElementById('ladiesTags').innerHTML = tags.map(t => `<span>${t}</span>`).join('');
+}
+function openLadiesNotify() {
+  notifyProduct = { name: STORE.settings.LadiesTitle || 'Ladies Collection' };
+  document.getElementById('notifyProdName').textContent = "We'll text you the moment it drops.";
+  openModal('notifyModal');
 }
 
 function renderSocial() {
@@ -880,10 +900,12 @@ function updateCartUI() {
   foot.style.display = 'flex';
   body.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
-      <img src="${item.image}" onerror="this.src='https://placehold.co/70x88/EBE7DC/101010?text=3B'"/>
+      ${item.type==='custom'
+        ? `<div class="ci-mini-tee" style="background:${item.shirtColor}"><img src="${item.designImage}" onerror="this.style.display='none'"/></div>`
+        : `<img src="${item.image}" onerror="this.src='https://placehold.co/70x88/EBE7DC/101010?text=3B'"/>`}
       <div class="ci-info">
         <div class="ci-name">${item.name}</div>
-        <div class="ci-meta">${item.type==='custom' ? `Custom · ${item.designCode}` : `Size: ${item.size}`}</div>
+        <div class="ci-meta">${item.type==='custom' ? `Custom · Size ${item.size}` : `Size: ${item.size}`}</div>
         <div class="ci-row">
           <div class="ci-qty"><button onclick="changeCartQty(${i},-1)">−</button><span>${item.qty}</span><button onclick="changeCartQty(${i},1)">+</button></div>
           <div class="ci-price">${(item.price*item.qty).toLocaleString()} EGP</div>
@@ -1020,7 +1042,9 @@ async function submitCheckout() {
   const discount = computeDiscount(subtotal);
   const total = Math.max(0, subtotal + shipFee - discount);
   const payMethod = STORE.paymentMethods.find(p => p.id === payMethodId);
-  const designItem = cart.find(i => i.type === 'custom');
+  const customNotes = cart.filter(i => i.type === 'custom')
+    .map(i => `${i.name}${i.note ? ' — note: ' + i.note : ''}`).join(' | ');
+  const orderNote = [document.getElementById('coNote').value.trim(), customNotes].filter(Boolean).join(' || ');
 
   const btn = document.getElementById('placeOrderBtn');
   btn.disabled = true; btn.textContent = 'Placing order…';
@@ -1032,12 +1056,10 @@ async function submitCheckout() {
       floor: document.getElementById('coFloor').value.trim(),
       apartment: document.getElementById('coApt').value.trim(),
       landmark: document.getElementById('coLandmark').value.trim(),
-      note: document.getElementById('coNote').value.trim(),
+      note: orderNote,
       paymentMethod: payMethod ? payMethod.name : '',
       subtotal, shippingFee: shipFee, discount, total,
-      items: cart.map(i => ({ name:i.name, size:i.size||'', qty:i.qty, price:i.price })),
-      designCode: designItem ? designItem.designCode : '',
-      designPreviewUrl: designItem ? designItem.image : ''
+      items: cart.map(i => ({ name:i.name, size:i.size||'', qty:i.qty, price:i.price }))
     });
     showOrderConfirmation(result.orderId, { subtotal, shipFee, discount, total, payMethodName: payMethod ? payMethod.name : '', gov });
     cart = []; saveCart(); updateCartUI();
@@ -1097,7 +1119,6 @@ function openPolicy(key) {
   document.getElementById('policyContent').textContent = p ? p.content : 'Content coming soon.';
   openModal('policyModal');
 }
-function openLoadDesign(){ openDesigner(); setTimeout(()=>document.getElementById('loadDesignCodeInput').focus(), 350); }
 
 /* ============================================================
    MODAL HELPERS
@@ -1117,328 +1138,111 @@ function showToast(msg, type='success') {
 }
 
 /* ============================================================
-   CUSTOM T-SHIRT DESIGNER (Fabric.js)
-   - Realistic-ish recolorable shirt (shaded overlay works on any color)
-   - Uploaded art / drawings are clipped to the print area and sit
-     under a multiply-blended shading layer so they read as printed
-     onto the fabric rather than a sticker floating on top
-   - Mobile-first: drag to move, one slider to resize, no fiddly
-     corner-drag handles, canvas scales responsively to the screen
+   CUSTOMIZE — pick a shirt color + pick a pre-made print
+   No freehand canvas: the store owner uploads the print designs
+   (CustomDesigns sheet) and the customer combines color + print.
+   The shirt itself is pure CSS (no image assets needed), so it
+   always renders correctly and stays lightweight on mobile.
 ============================================================ */
-let designerCanvas = null;
-let designerShirtColor = SHIRT_COLORS[0];
-let designerPrintColor = PRINT_COLORS[0];
-let designerSide = 'front';
-let designerStates = { front: null, back: null };
-let historyStack = { front: [], back: [] };
-let historyIndex = { front: -1, back: -1 };
-let suppressHistory = false;
-let savedDesignCode = null;
+let CUSTOM_COLORS = [];
+let czState = { colorHex: '', colorName: '', designId: null, size: '', qty: 1 };
 
-const BASE_W = 380, BASE_H = 460;
-const PRINT_AREA = { left: 140, top: 158, width: 110, height: 140 };
-
-const SHIRT_PATH = 'M150,66 C130,50 108,50 90,66 L40,102 C33,108 33,116 40,122 L76,156 C82,162 90,161 95,155 ' +
-  'L118,133 L118,290 C118,330 112,372 106,414 C105,420 109,426 116,426 L264,426 C271,426 275,420 274,414 ' +
-  'C268,372 262,330 262,290 L262,133 L285,155 C290,161 298,162 304,156 L340,122 C347,116 347,108 340,102 ' +
-  'L290,66 C272,50 250,50 230,66 C220,84 206,94 190,94 C174,94 160,84 150,66 Z';
-
-// Stitch / seam detail lines — purely decorative, drawn on top of the base fill
-const SHIRT_DETAILS = [
-  { d: 'M158,74 C174,88 206,88 222,74', dash: null },      // collar rib inner
-  { d: 'M162,80 C176,92 204,92 218,80', dash: null },      // collar rib outer
-  { d: 'M48,106 L82,150', dash: [3,4] },                    // left sleeve stitch
-  { d: 'M332,106 L298,150', dash: [3,4] },                  // right sleeve stitch
-  { d: 'M112,406 Q190,418 268,406', dash: [2,4] }           // hem stitch
-];
-
-function makeShadingPieces() {
-  const dark = (a) => new fabric.Gradient({ type:'radial', gradientUnits:'percentage',
-    coords:{ x1:.5, y1:.5, x2:.5, y2:.5, r1:0, r2:.5 },
-    colorStops:[{ offset:0, color:`rgba(0,0,0,${a})` }, { offset:1, color:'rgba(0,0,0,0)' }] });
-  const light = (a) => new fabric.Gradient({ type:'radial', gradientUnits:'percentage',
-    coords:{ x1:.5, y1:.5, x2:.5, y2:.5, r1:0, r2:.5 },
-    colorStops:[{ offset:0, color:`rgba(255,255,255,${a})` }, { offset:1, color:'rgba(255,255,255,0)' }] });
-  const base = { id:'shading', selectable:false, evented:false };
-  return [
-    new fabric.Ellipse(Object.assign({}, base, { left:60,  top:100, rx:45, ry:55, fill:dark(.4), globalCompositeOperation:'multiply' })),
-    new fabric.Ellipse(Object.assign({}, base, { left:275, top:100, rx:45, ry:55, fill:dark(.4), globalCompositeOperation:'multiply' })),
-    new fabric.Ellipse(Object.assign({}, base, { left:70,  top:230, rx:60, ry:120,fill:dark(.28), globalCompositeOperation:'multiply' })),
-    new fabric.Ellipse(Object.assign({}, base, { left:250, top:230, rx:60, ry:120,fill:dark(.28), globalCompositeOperation:'multiply' })),
-    new fabric.Ellipse(Object.assign({}, base, { left:40,  top:350, rx:220,ry:40, fill:dark(.22), globalCompositeOperation:'multiply' })),
-    new fabric.Ellipse(Object.assign({}, base, { left:110, top:130, rx:110,ry:150,fill:light(.10),globalCompositeOperation:'overlay' }))
-  ];
+function parseCustomColors() {
+  const raw = STORE.settings.CustomShirtColors || '';
+  CUSTOM_COLORS = raw.split(',').map(pair => {
+    const [name, hex] = pair.split(':').map(s => (s || '').trim());
+    return { name, hex };
+  }).filter(c => c.name && c.hex);
+  if (!CUSTOM_COLORS.length) CUSTOM_COLORS = [{ name:'Black', hex:'#0E0E0E' }];
 }
 
-function initDesigner() {
-  if (designerCanvas) { fitCanvasToContainer(); return; }
-  designerCanvas = new fabric.Canvas('designerCanvas', { backgroundColor: 'transparent', selection: true, preserveObjectStacking: true });
-  document.getElementById('shirtSwatches').innerHTML = SHIRT_COLORS.map((c,i) =>
-    `<div class="swatch ${i===0?'selected':''}" style="background:${c}" onclick="setShirtColor('${c}', this)"></div>`).join('');
-  document.getElementById('printSwatches').innerHTML = PRINT_COLORS.map((c,i) =>
-    `<div class="swatch ${i===0?'selected':''}" style="background:${c};border-color:${c==='#F5F3EE'?'#ccc':'var(--line)'}" onclick="setPrintColor('${c}', this)"></div>`).join('');
-  document.getElementById('customPriceLabel').textContent = (Number(STORE.settings.CustomShirtPrice||1200)).toLocaleString() + ' EGP';
-
-  buildBlankSide('front');
-  buildBlankSide('back');
-  loadSide('front');
-
-  designerCanvas.on('object:modified', pushHistory);
-  designerCanvas.on('object:added', () => { if (!suppressHistory) pushHistory(); });
-  designerCanvas.on('path:created', e => {
-    const path = e.path;
-    path.set({ clipPath: makeClipRect(), hasControls:false, hasRotatingPoint:false, lockRotation:true,
-      lockScalingX:true, lockScalingY:true, baseScale: 1 });
-    delete path.id;
-    bringOverlaysToFront();
-    pushHistory();
-  });
-  designerCanvas.on('object:moving', e => clampToPrintZone(e.target));
-  designerCanvas.on('selection:created', updateSizeSliderForSelection);
-  designerCanvas.on('selection:updated', updateSizeSliderForSelection);
-  designerCanvas.on('selection:cleared', () => document.getElementById('sizeSliderRow').classList.remove('active'));
-  document.getElementById('designSizeSlider').addEventListener('change', pushHistory);
-
-  window.addEventListener('resize', fitCanvasToContainer);
-  window.addEventListener('orientationchange', fitCanvasToContainer);
-  fitCanvasToContainer();
+function openCustomizer() {
+  if (!CUSTOM_COLORS.length) parseCustomColors();
+  renderCzColors();
+  renderCzDesigns();
+  renderCzSizes();
+  if (!czState.colorHex) selectCzColor(CUSTOM_COLORS[0].hex, CUSTOM_COLORS[0].name);
+  updateCzPrice();
+  openModal('customizeModal');
 }
 
-function fitCanvasToContainer() {
-  if (!designerCanvas) return;
-  const shell = document.querySelector('.canvas-shell');
-  const w = Math.min(shell.clientWidth || BASE_W, BASE_W);
-  const scale = w / BASE_W;
-  designerCanvas.setDimensions({ width: w, height: BASE_H * scale });
-  designerCanvas.setZoom(scale);
-  designerCanvas.renderAll();
+function renderCzColors() {
+  document.getElementById('czColorSwatches').innerHTML = CUSTOM_COLORS.map((c,i) =>
+    `<div class="swatch ${czState.colorHex===c.hex?'selected':(i===0 && !czState.colorHex?'selected':'')}" style="background:${c.hex}" title="${c.name}" onclick="selectCzColor('${c.hex}','${c.name}', this)"></div>`
+  ).join('');
+}
+function selectCzColor(hex, name, el) {
+  czState.colorHex = hex; czState.colorName = name;
+  document.getElementById('teeMock').style.setProperty('--shirt-color', hex);
+  document.querySelectorAll('#czColorSwatches .swatch').forEach(s => s.classList.remove('selected'));
+  if (el) el.classList.add('selected');
+  else { const match = document.querySelectorAll('#czColorSwatches .swatch')[CUSTOM_COLORS.findIndex(c=>c.hex===hex)]; if (match) match.classList.add('selected'); }
 }
 
-function makeClipRect() {
-  return new fabric.Rect({ left: PRINT_AREA.left, top: PRINT_AREA.top, width: PRINT_AREA.width,
-    height: PRINT_AREA.height, absolutePositioned: true });
+function renderCzDesigns() {
+  const designs = STORE.customDesigns || [];
+  const el = document.getElementById('czDesignGallery');
+  if (!designs.length) { el.innerHTML = `<p style="font-size:.8rem;color:var(--ink-soft)">No prints available yet.</p>`; return; }
+  el.innerHTML = designs.map(d => `
+    <div class="design-thumb ${czState.designId===d.id?'selected':''}" onclick="selectCzDesign('${d.id}', this)">
+      <img src="${d.image}" alt="${d.name}" onerror="this.src='https://placehold.co/300x300/EBE7DC/101010?text=3B'"/>
+    </div>`).join('');
 }
-
-function buildBlankSide(side) {
-  const shirt = new fabric.Path(SHIRT_PATH, { fill: designerShirtColor, selectable:false, evented:false, id:'shirtBase' });
-  const details = SHIRT_DETAILS.map(d => new fabric.Path(d.d, { fill:'', stroke:'rgba(0,0,0,.16)', strokeWidth:1.4,
-    strokeDashArray: d.dash, selectable:false, evented:false, id:'shirtDetail' }));
-  const guide = new fabric.Rect({ left:PRINT_AREA.left, top:PRINT_AREA.top, width:PRINT_AREA.width, height:PRINT_AREA.height,
-    fill:'transparent', stroke:'#00000030', strokeDashArray:[4,4], selectable:false, evented:false, id:'printGuide' });
-  const shading = makeShadingPieces();
-  const objects = [shirt, ...details, guide, ...shading].map(o => o.toObject(['id','baseScale']));
-  designerStates[side] = { objects, background:'transparent' };
-}
-
-function loadSide(side) {
-  designerSide = side;
-  document.getElementById('sideFrontBtn').classList.toggle('active', side==='front');
-  document.getElementById('sideBackBtn').classList.toggle('active', side==='back');
-  suppressHistory = true;
-  designerCanvas.loadFromJSON(designerStates[side], () => {
-    designerCanvas.renderAll();
-    suppressHistory = false;
-    if (historyStack[side].length === 0) pushHistory();
-  });
-}
-function switchDesignerSide(side) {
-  if (side === designerSide) return;
-  designerStates[designerSide] = designerCanvas.toJSON(['id','baseScale']);
-  loadSide(side);
-}
-
-function setShirtColor(c, el) {
-  designerShirtColor = c;
-  document.querySelectorAll('#shirtSwatches .swatch').forEach(s => s.classList.remove('selected'));
+function selectCzDesign(id, el) {
+  czState.designId = id;
+  document.querySelectorAll('#czDesignGallery .design-thumb').forEach(t => t.classList.remove('selected'));
   el.classList.add('selected');
-  const base = designerCanvas.getObjects().find(o => o.id === 'shirtBase');
-  if (base) { base.set('fill', c); designerCanvas.renderAll(); }
+  const design = (STORE.customDesigns || []).find(d => d.id === id);
+  const img = document.getElementById('teeDesignImg');
+  const placeholder = document.getElementById('teePrintPlaceholder');
+  if (design) { img.src = design.image; img.style.display = 'block'; placeholder.style.display = 'none'; }
+  updateCzPrice();
 }
-function setPrintColor(c, el) {
-  designerPrintColor = c;
-  document.querySelectorAll('#printSwatches .swatch').forEach(s => s.classList.remove('selected'));
+
+function renderCzSizes() {
+  document.getElementById('czSizes').innerHTML = SIZES.map(s =>
+    `<div class="size-chip ${czState.size===s?'selected':''}" onclick="selectCzSize('${s}', this)">${s}</div>`).join('');
+}
+function selectCzSize(size, el) {
+  czState.size = size;
+  document.querySelectorAll('#czSizes .size-chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  if (designerCanvas.freeDrawingBrush) designerCanvas.freeDrawingBrush.color = c;
 }
-function toggleDrawMode() {
-  designerCanvas.discardActiveObject();
-  designerCanvas.isDrawingMode = !designerCanvas.isDrawingMode;
-  if (designerCanvas.isDrawingMode) {
-    designerCanvas.freeDrawingBrush = new fabric.PencilBrush(designerCanvas);
-    designerCanvas.freeDrawingBrush.color = designerPrintColor;
-    designerCanvas.freeDrawingBrush.width = Number(document.getElementById('brushSize').value);
-  }
-  document.getElementById('drawToolBtn').classList.toggle('active', designerCanvas.isDrawingMode);
+function changeCzQty(d) {
+  czState.qty = Math.max(1, czState.qty + d);
+  document.getElementById('czQty').textContent = czState.qty;
+  updateCzPrice();
 }
-function updateBrushSize() {
-  if (designerCanvas.freeDrawingBrush) designerCanvas.freeDrawingBrush.width = Number(document.getElementById('brushSize').value);
+function updateCzPrice() {
+  const base = Number(STORE.settings.CustomShirtPrice || 1200);
+  const design = (STORE.customDesigns || []).find(d => d.id === czState.designId);
+  const unit = base + (design ? design.extraPrice : 0);
+  document.getElementById('czPrice').textContent = (unit * czState.qty).toLocaleString() + ' EGP';
 }
 
-function handleDesignUpload(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = evt => {
-    fabric.Image.fromURL(evt.target.result, img => {
-      const fitScale = Math.min((PRINT_AREA.width*0.85) / img.width, (PRINT_AREA.height*0.85) / img.height);
-      img.set({
-        left: PRINT_AREA.left + PRINT_AREA.width/2, top: PRINT_AREA.top + PRINT_AREA.height/2,
-        originX:'center', originY:'center',
-        scaleX: fitScale, scaleY: fitScale, baseScale: fitScale,
-        clipPath: makeClipRect(),
-        hasControls:false, hasRotatingPoint:false, lockRotation:true, lockScalingX:true, lockScalingY:true,
-        hasBorders:true, borderColor:'#E1391F', padding:2
-      });
-      designerCanvas.add(img);
-      designerCanvas.setActiveObject(img);
-      bringOverlaysToFront();
-      designerCanvas.renderAll();
-      document.getElementById('designSizeSlider').value = 100;
-      document.getElementById('sizeSliderRow').classList.add('active');
-    });
-  };
-  reader.readAsDataURL(file);
-  e.target.value = '';
-}
-
-// Keep the print-area guide and the fold-shading layer above anything the user adds,
-// so new artwork is always clipped to the print zone and receives the fabric shading.
-function bringOverlaysToFront() {
-  designerCanvas.getObjects().forEach(o => {
-    if (o.id === 'printGuide' || o.id === 'shading') designerCanvas.bringToFront(o);
+function addCustomToCart() {
+  if (!czState.designId) return showToast('Please choose a print', 'error');
+  if (!czState.size) return showToast('Please choose a size', 'error');
+  const base = Number(STORE.settings.CustomShirtPrice || 1200);
+  const design = (STORE.customDesigns || []).find(d => d.id === czState.designId);
+  const price = base + (design ? design.extraPrice : 0);
+  const note = document.getElementById('czNote').value.trim();
+  cart.push({
+    type: 'custom', name: `Custom Tee — ${czState.colorName} · ${design ? design.name : ''}`,
+    price, qty: czState.qty, size: czState.size,
+    shirtColor: czState.colorHex, shirtColorName: czState.colorName,
+    designImage: design ? design.image : '', designName: design ? design.name : '',
+    note
   });
-}
-
-function clampToPrintZone(obj) {
-  if (obj.id) return; // only constrain user-added content
-  const margin = 70;
-  const minX = PRINT_AREA.left - margin, maxX = PRINT_AREA.left + PRINT_AREA.width + margin;
-  const minY = PRINT_AREA.top - margin, maxY = PRINT_AREA.top + PRINT_AREA.height + margin;
-  obj.left = Math.max(minX, Math.min(maxX, obj.left));
-  obj.top = Math.max(minY, Math.min(maxY, obj.top));
-}
-
-function updateSizeSliderForSelection() {
-  const obj = designerCanvas.getActiveObject();
-  const row = document.getElementById('sizeSliderRow');
-  if (!obj || obj.id) { row.classList.remove('active'); return; }
-  row.classList.add('active');
-  const base = obj.baseScale || obj.scaleX || 1;
-  const pct = Math.round((obj.scaleX / base) * 100);
-  document.getElementById('designSizeSlider').value = Math.max(20, Math.min(220, pct));
-}
-function updateActiveObjectScale() {
-  const obj = designerCanvas.getActiveObject();
-  if (!obj || obj.id) return;
-  const base = obj.baseScale || 1;
-  const val = Number(document.getElementById('designSizeSlider').value);
-  obj.scale(base * (val / 100));
-  obj.setCoords();
-  designerCanvas.renderAll();
-}
-
-function deleteActiveObject() {
-  const obj = designerCanvas.getActiveObject();
-  if (obj && !obj.id) { designerCanvas.remove(obj); designerCanvas.renderAll(); pushHistory(); }
-  document.getElementById('sizeSliderRow').classList.remove('active');
-}
-function resetDesigner() {
-  historyStack[designerSide] = []; historyIndex[designerSide] = -1;
-  buildBlankSide(designerSide);
-  loadSide(designerSide);
-  document.getElementById('sizeSliderRow').classList.remove('active');
-}
-function pushHistory() {
-  if (suppressHistory) return;
-  const side = designerSide;
-  const snap = JSON.stringify(designerCanvas.toJSON(['id','baseScale']));
-  const stack = historyStack[side];
-  stack.splice(historyIndex[side] + 1);
-  stack.push(snap);
-  historyIndex[side] = stack.length - 1;
-}
-function designerUndo() {
-  const side = designerSide;
-  if (historyIndex[side] <= 0) return;
-  historyIndex[side]--;
-  suppressHistory = true;
-  designerCanvas.loadFromJSON(JSON.parse(historyStack[side][historyIndex[side]]), () => { designerCanvas.renderAll(); suppressHistory = false; });
-}
-function designerRedo() {
-  const side = designerSide;
-  if (historyIndex[side] >= historyStack[side].length - 1) return;
-  historyIndex[side]++;
-  suppressHistory = true;
-  designerCanvas.loadFromJSON(JSON.parse(historyStack[side][historyIndex[side]]), () => { designerCanvas.renderAll(); suppressHistory = false; });
-}
-
-function openDesigner() {
-  openModal('designerModal');
-  setTimeout(initDesigner, 60);
-}
-
-function withGuideHidden(fn) {
-  const guide = designerCanvas.getObjects().find(o => o.id === 'printGuide');
-  if (guide) guide.set('visible', false);
-  designerCanvas.discardActiveObject();
-  designerCanvas.renderAll();
-  const result = fn();
-  if (guide) guide.set('visible', true);
-  designerCanvas.renderAll();
-  return result;
-}
-
-async function saveDesign() {
-  designerStates[designerSide] = designerCanvas.toJSON(['id','baseScale']);
-  const name = document.getElementById('designerName').value.trim();
-  const phone = document.getElementById('designerPhone').value.trim();
-  if (!name || !phone) return showToast('Please enter your name and phone to save', 'error');
-  const previewDataUrl = withGuideHidden(() => designerCanvas.toDataURL({ format:'png', quality:0.85 }));
-  const btn = event.target;
-  btn.disabled = true; btn.textContent = 'Saving…';
-  try {
-    const result = await apiPost('design_save', {
-      customerName: name, customerPhone: phone, productType: 'Custom T-Shirt',
-      shirtColor: designerShirtColor, printColor: designerPrintColor,
-      designJson: { front: designerStates.front, back: designerStates.back },
-      previewImageBase64: previewDataUrl
-    });
-    savedDesignCode = result.code;
-    document.getElementById('designerCodeOut').textContent = result.code;
-    document.getElementById('designerSaveResult').classList.add('show');
-    showToast('Design saved — code ' + result.code);
-  } catch (err) {
-    showToast('Could not save design. Please try again.', 'error');
-  } finally { btn.disabled = false; btn.textContent = 'Save Design'; }
-}
-
-function addDesignToCart() {
-  if (!savedDesignCode) return;
-  const price = Number(STORE.settings.CustomShirtPrice || 1200);
-  const preview = withGuideHidden(() => designerCanvas.toDataURL({ format:'png', quality:0.7 }));
-  cart.push({ type:'custom', name:'Custom T-Shirt', image: preview, price, qty:1, designCode: savedDesignCode });
   saveCart(); updateCartUI();
-  closeModal('designerModal');
-  showToast('Custom design added to cart');
-}
-
-async function loadDesignByCode() {
-  const code = document.getElementById('loadDesignCodeInput').value.trim();
-  if (!code) return;
-  try {
-    const result = await apiGet('design', { code });
-    if (!result.found) return showToast('Design code not found', 'error');
-    if (!designerCanvas) { await new Promise(r => { initDesigner(); setTimeout(r, 60); }); }
-    designerShirtColor = result.shirtColor || designerShirtColor;
-    designerPrintColor = result.printColor || designerPrintColor;
-    designerStates.front = result.designJson.front || designerStates.front;
-    designerStates.back = result.designJson.back || designerStates.back;
-    loadSide('front');
-    savedDesignCode = result.code;
-    document.getElementById('designerCodeOut').textContent = result.code;
-    document.getElementById('designerSaveResult').classList.add('show');
-    showToast('Design loaded: ' + result.code);
-  } catch { showToast('Could not load design', 'error'); }
+  closeModal('customizeModal');
+  showToast('Added to cart — Custom Tee');
+  // reset for next time
+  czState = { colorHex:'', colorName:'', designId:null, size:'', qty:1 };
+  document.getElementById('czQty').textContent = 1;
+  document.getElementById('czNote').value = '';
+  document.getElementById('teeDesignImg').style.display = 'none';
+  document.getElementById('teePrintPlaceholder').style.display = 'block';
 }
 
 boot();
