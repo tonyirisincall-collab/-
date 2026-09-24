@@ -95,9 +95,10 @@ nav.maincats a:hover,nav.maincats a.active{border-color:var(--accent)}
 
 /* EDITORIAL BANNERS */
 .editorial{padding:80px 0}
-.editorial-full{position:relative;height:70vh;min-height:420px;overflow:hidden}
-.editorial-full img{width:100%;height:100%;object-fit:cover}
-.editorial-full .ov{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:44px;color:#fff}
+.editorial-full{position:relative;height:70vh;min-height:420px;overflow:hidden;background:var(--dark)}
+.editorial-full .bg-blur{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(40px) brightness(.55);transform:scale(1.2)}
+.editorial-full img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain}
+.editorial-full .ov{position:absolute;inset:0;z-index:2;background:linear-gradient(0deg,rgba(0,0,0,.65),transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:44px;color:#fff}
 .editorial-full h3{font-family:'Archivo Black',sans-serif;font-size:clamp(1.8rem,4vw,3rem);text-transform:uppercase;max-width:600px}
 .editorial-full p{max-width:420px;margin-top:10px;color:#e6e3d8;font-size:.9rem}
 .editorial-full .btn-ghost{margin-top:18px;display:inline-block;border:1.5px solid #fff;padding:11px 22px;font-size:.78rem;font-weight:700;letter-spacing:.05em}
@@ -602,7 +603,7 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
 /* ============================================================
    CONFIG — replace with your deployed Apps Script Web App URL
 ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbzu965gn8jqeXKeNaWZ7KKCltXlxemrsWYY5KZ6sAZTtDmmQeLjMXHbGcYGNBWNN1yU3w/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycby_iuJ6uDhlgixm7TRiRDhDv4lCBwOHKArzz6twscqPPaJJguPdpujUkk3fMKXc48m8Ng/exec";
 
 const SIZES = ['XS','S','M','L','XL','XXL'];
 
@@ -689,7 +690,9 @@ function renderBanners() {
         <a href="${b.ctaLink||'#'}" class="btn-outline on-dark" style="margin-top:18px;display:inline-block">${b.ctaText||'Explore'}</a></div>
       </div>`;
     }
-    return `<div class="editorial-full"><img src="${b.image}" alt="${b.title}"/>
+    return `<div class="editorial-full">
+      <div class="bg-blur" style="background-image:url('${b.image}')"></div>
+      <img src="${b.image}" alt="${b.title}"/>
       <div class="ov"><h3>${b.title}</h3><p>${b.subtitle||''}</p>
       <a href="${b.ctaLink||'#'}" class="btn-ghost">${b.ctaText||'Explore'}</a></div>
     </div>`;
