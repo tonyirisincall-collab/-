@@ -7,7 +7,7 @@
 <meta name="description" content="3ABAS — streetwear made in Cairo. Limited drops, heavyweight fabric, custom T-shirt designer."/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='180 110 440 260'%3E%3Crect x='180' y='110' width='440' height='260' fill='%23050507'/%3E%3Cg transform='translate(0,10)'%3E%3Cpath d='M 200 230 C 310 120, 490 120, 600 230 C 490 170, 310 170, 200 230 Z' fill='%23F1F5F9'/%3E%3Cpath d='M 200 230 C 310 340, 490 340, 600 230 C 485 285, 315 285, 200 230 Z' fill='%23F1F5F9'/%3E%3Cpath d='M 400 170 Q 400 230, 450 230 Q 400 230, 400 290 Q 400 230, 350 230 Q 400 230, 400 170 Z' fill='%23F1F5F9'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Lalezar&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F4F3F0; --bg-alt:#E9E8E3; --surface:#FFFFFF;
@@ -26,7 +26,6 @@ button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit
 button{cursor:pointer;background:none;border:none}
 a{color:inherit;text-decoration:none}
 .disp{font-family:'Archivo Black',sans-serif;text-transform:uppercase;letter-spacing:-0.01em}
-.ar{font-family:'Lalezar',sans-serif}
 .wrap{max-width:1440px;margin:0 auto;padding:0 40px}
 @media(max-width:768px){.wrap{padding:0 18px}}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -39,7 +38,7 @@ a{color:inherit;text-decoration:none}
 header{position:sticky;top:0;z-index:60;background:rgba(5,5,7,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--dark-line)}
 .header-row{display:flex;align-items:center;justify-content:space-between;height:78px;gap:18px}
 .brandmark{display:flex;align-items:center;gap:12px}
-.brandmark .logo-mark{width:34px;height:21px;flex-shrink:0}
+.brandmark .logo-mark{width:40px;height:25px;flex-shrink:0}
 .brandmark .wordwrap{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
 .brand-word{display:inline-flex;align-items:baseline;gap:1px}
 .brand-word .num{font-family:'Archivo Black',sans-serif;font-size:1.5rem;color:var(--accent);
@@ -53,7 +52,15 @@ header{position:sticky;top:0;z-index:60;background:rgba(5,5,7,.92);backdrop-filt
 .brand-rule::after{content:'';position:absolute;left:50%;top:50%;width:7px;height:7px;
   transform:translate(-50%,-50%);background:var(--accent);
   clip-path:polygon(50% 0%,63% 35%,100% 35%,69% 57%,82% 100%,50% 76%,18% 100%,31% 57%,0% 35%,37% 35%)}
-.brandmark .ar{font-size:.8rem;color:#8f8c7e;margin-top:3px}
+.brandmark .ar{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:2rem;line-height:1;margin-top:2px;
+  background:linear-gradient(135deg,#FFFFFF 0%,#F8FAFC 35%,#94A3B8 70%,#CBD5E1 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
+.brandmark .ar-rule{width:100%;height:1px;margin-top:3px;position:relative;
+  background:linear-gradient(90deg,transparent,#8f8c7e 20%,#8f8c7e 80%,transparent)}
+.brandmark .ar-rule::after{content:'';position:absolute;left:50%;top:50%;width:6px;height:6px;
+  transform:translate(-50%,-50%);background:var(--accent);
+  clip-path:polygon(50% 0%,63% 35%,100% 35%,69% 57%,82% 100%,50% 76%,18% 100%,31% 57%,0% 35%,37% 35%)}
 nav.maincats{display:flex;gap:26px;font-size:.82rem;font-weight:600;color:var(--dark-text)}
 nav.maincats a{padding:4px 2px;border-bottom:2px solid transparent;transition:border-color .2s}
 nav.maincats a:hover,nav.maincats a.active{border-color:var(--accent)}
@@ -135,12 +142,6 @@ nav.maincats a:hover,nav.maincats a.active{border-color:var(--accent)}
 .pcard-price{display:flex;gap:8px;align-items:baseline;font-size:.9rem;font-weight:700}
 .pcard-price .old{font-weight:500;color:var(--ink-soft);text-decoration:line-through;font-size:.78rem}
 .empty-state{grid-column:1/-1;padding:80px 20px;text-align:center;color:var(--ink-soft)}
-
-/* CUSTOM CTA BANNER */
-.custom-cta{background:var(--dark);color:var(--dark-text);padding:70px 40px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
-.custom-cta h2{font-family:'Archivo Black',sans-serif;font-size:clamp(1.8rem,3.6vw,3rem);text-transform:uppercase;max-width:520px;line-height:1}
-.custom-cta p{color:#c9c6ba;margin-top:10px;max-width:420px}
-.custom-cta .btn-main{margin-top:0}
 
 /* BUTTONS */
 .btn-main{background:var(--ink);color:#fff;padding:15px 30px;font-weight:700;font-size:.82rem;letter-spacing:.03em;transition:background .2s,transform .2s;display:inline-flex;align-items:center;gap:8px}
@@ -280,42 +281,6 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
 .confirm-summary{text-align:left;border:1px solid var(--line);padding:16px 18px;margin:0 auto 22px;max-width:420px;font-size:.85rem}
 .confirm-summary .row{display:flex;justify-content:space-between;padding:5px 0}
 
-/* CUSTOMIZER — dropdown color + dropdown print; every state is a real uploaded photo */
-#customizeModal .modal{max-width:1100px;padding:0}
-.cz-layout{display:grid;grid-template-columns:1fr 380px;min-height:600px}
-.cz-preview{background:var(--bg-alt);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 18px;gap:14px}
-.cz-panel{padding:26px 24px;border-left:1px solid var(--line);overflow-y:auto;max-height:92vh;display:flex;flex-direction:column;gap:22px}
-.dp-block h4{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
-
-/* native <select> dropdowns, styled to match the brand but kept as real selects
-   for maximum simplicity/accessibility on any device */
-.select-wrap{position:relative}
-.select-wrap::after{content:'▾';position:absolute;right:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--ink-soft);font-size:.8rem}
-.select-wrap select{width:100%;appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--surface);
-  padding:13px 40px 13px 15px;font-size:.9rem;font-weight:600;font-family:inherit;color:var(--ink);cursor:pointer;transition:border-color .2s}
-.select-wrap select:focus{border-color:var(--ink)}
-.select-wrap select:disabled{color:var(--ink-soft);cursor:not-allowed;background:var(--bg-alt)}
-
-.side-toggle{display:flex;border:1px solid var(--line);background:var(--surface)}
-.side-toggle button{padding:8px 22px;font-size:.76rem;font-weight:700;letter-spacing:.03em}
-.side-toggle button.active{background:var(--ink);color:#fff}
-
-/* real product photo preview — swaps between blank shirt and finished combo photo */
-.cz-photo{position:relative;width:100%;max-width:380px;aspect-ratio:9/11;background:var(--surface);box-shadow:0 10px 40px rgba(0,0,0,.08);overflow:hidden}
-.cz-photo img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s var(--ease)}
-.cz-photo img.show{opacity:1}
-.cz-photo-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;font-size:.82rem;color:var(--ink-soft)}
-
-.cz-price{border:1px solid var(--line);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:700}
-@media(max-width:900px){.cz-layout{grid-template-columns:1fr}.cz-panel{border-left:none;border-top:1px solid var(--line);max-height:none}}
-@media(max-width:640px){
-  #customizeModal{padding:0}
-  #customizeModal .modal{max-width:100%;width:100%;height:100%;max-height:100%;border-radius:0}
-  .cz-layout{min-height:100%}
-  .cz-preview{padding:20px 18px 8px}
-  .cz-panel{padding-bottom:40px}
-}
-
 /* LADIES TEASER */
 .ladies-banner{position:relative;height:60vh;min-height:400px;overflow:hidden}
 .ladies-banner img{width:100%;height:100%;object-fit:cover}
@@ -401,11 +366,8 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
         </g>
       </svg>
       <div class="wordwrap">
-        <div class="brand-word" role="img" aria-label="3ABAS">
-          <span class="num">3</span><span class="letters disp">ABAS</span>
-        </div>
-        <div class="brand-rule"></div>
         <span class="ar" id="brandAr">عبث</span>
+        <div class="ar-rule"></div>
       </div>
     </div>
     <nav class="maincats" id="mainCatNav"></nav>
@@ -470,16 +432,6 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
     </div>
   </section>
 
-  <section class="wrap" style="padding-bottom:2px" id="customize">
-    <div class="custom-cta">
-      <div>
-        <h2 class="disp">Make It<br>Yours</h2>
-        <p>Pick your shirt color, pick a print — see it on the shirt before you order.</p>
-      </div>
-      <button class="btn-outline on-dark" onclick="openCustomizer()">Start Customizing →</button>
-    </div>
-  </section>
-
   <section class="ladies-banner" id="ladies">
     <img id="ladiesImg" src="" alt=""/>
     <div class="ov">
@@ -534,7 +486,6 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
       <h4>Shop</h4>
       <div class="footer-links">
         <a href="#products">All Products</a>
-        <a href="#customize">Custom T-Shirt</a>
         <a href="#ladies">For The Ladies</a>
       </div>
     </div>
@@ -624,63 +575,6 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
   </div>
 </div>
 
-<!-- CUSTOMIZE (dropdown color + dropdown print picker — every state is a real photo, front & back) -->
-<div class="modal-overlay" id="customizeModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('customizeModal')">✕</button>
-    <div class="cz-layout">
-      <div class="cz-preview">
-        <div class="side-toggle" id="czSideToggle">
-          <button type="button" class="active" onclick="selectCzSide('front', this)">Front</button>
-          <button type="button" onclick="selectCzSide('back', this)">Back</button>
-        </div>
-        <div class="cz-photo" id="czPhoto">
-          <div class="cz-photo-empty" id="czPhotoEmpty">Pick a shirt color to start →</div>
-          <img id="czPhotoImg" src="" alt=""/>
-        </div>
-      </div>
-      <div class="cz-panel">
-        <div class="dp-block">
-          <h4>1 · Shirt Color</h4>
-          <div class="select-wrap">
-            <select id="czColorSelect" onchange="onCzColorChange(this.value)">
-              <option value="">Select a color…</option>
-            </select>
-          </div>
-        </div>
-        <div class="dp-block">
-          <h4>2 · Choose a Print</h4>
-          <div class="select-wrap">
-            <select id="czDesignSelect" onchange="onCzDesignChange(this.value)" disabled>
-              <option value="">Select a color first…</option>
-            </select>
-          </div>
-        </div>
-        <div class="dp-block">
-          <h4>3 · Size</h4>
-          <div class="select-wrap">
-            <select id="czSizeSelect" onchange="onCzSizeChange(this.value)">
-              <option value="">Select a size…</option>
-            </select>
-          </div>
-        </div>
-        <div class="dp-block">
-          <div class="qty-row" style="margin-bottom:0">
-            <span class="pm-block-label" style="margin:0">Qty</span>
-            <div class="qty-ctrl"><button onclick="changeCzQty(-1)">−</button><span id="czQty">1</span><button onclick="changeCzQty(1)">+</button></div>
-          </div>
-        </div>
-        <div class="dp-block">
-          <h4>Note (optional)</h4>
-          <div class="field"><textarea id="czNote" rows="2" placeholder="Anything you'd like us to know"></textarea></div>
-        </div>
-        <div class="cz-price"><span>Total</span><span id="czPrice">—</span></div>
-        <button class="btn-main btn-block" onclick="addCustomToCart()">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- NOTIFY -->
 <div class="modal-overlay" id="notifyModal">
   <div class="modal" style="max-width:440px;padding:40px 34px">
@@ -708,11 +602,11 @@ footer{background:var(--dark);color:var(--dark-text);padding:60px 0 26px}
 /* ============================================================
    CONFIG — replace with your deployed Apps Script Web App URL
 ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbziwQctM6DZn-MPy4Q1VPGN2kPH2ErSqrN7wbpaCq9BQBK0_eWm-zGEX5ZgMc69-Z-A4w/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzu965gn8jqeXKeNaWZ7KKCltXlxemrsWYY5KZ6sAZTtDmmQeLjMXHbGcYGNBWNN1yU3w/exec";
 
 const SIZES = ['XS','S','M','L','XL','XXL'];
 
-let STORE = { products:[], categories:[], settings:{}, shipping:[], paymentMethods:[], homepage:[], policies:{}, customCombos:[] };
+let STORE = { products:[], categories:[], settings:{}, shipping:[], paymentMethods:[], homepage:[], policies:{} };
 let cart = JSON.parse(localStorage.getItem('3abas_cart') || '[]');
 let activeCategory = 'all';
 let currentProduct = null, pmSelectedSize = '', pmQty = 1;
@@ -824,8 +718,8 @@ function openLadiesNotify() {
 function renderSocial() {
   const s = STORE.settings;
   const links = [
-    ['Instagram', s.InstagramURL], ['TikTok', s.TikTokURL],
-    ['Facebook', s.FacebookURL], ['WhatsApp', s.WhatsApp ? 'https://wa.me/' + s.WhatsApp.replace(/[^0-9]/g,'') : '']
+    ['Instagram', s.InstagramURL],
+    ['WhatsApp', s.WhatsApp ? 'https://wa.me/' + s.WhatsApp.replace(/[^0-9]/g,'') : '']
   ].filter(([,url]) => url);
   document.getElementById('socialLinks').innerHTML = links.map(([name,url]) =>
     `<a href="${url}" target="_blank" rel="noopener">${name}</a>`).join('');
@@ -1246,136 +1140,6 @@ function showToast(msg, type='success') {
   const t = document.getElementById('toast');
   t.textContent = msg; t.className = `toast ${type} show`;
   setTimeout(() => t.classList.remove('show'), 4000);
-}
-
-/* ============================================================
-   CUSTOMIZE — dropdown color, then dropdown print, then dropdown size.
-   Every visual state is a REAL photo the store owner uploads to the
-   CustomCombos sheet: Blank(Front/Back) is shown the moment a color is
-   picked; Final(Front/Back) replaces it the moment a print is picked.
-   Front/Back is its own toggle so both angles can be real photos too.
-   Controls are plain <select> dropdowns on purpose — the simplest,
-   most foolproof input on any device, phone included.
-============================================================ */
-let czState = { colorName:'', colorHex:'', comboId:null, size:'', qty:1, side:'front' };
-
-function czColors() {
-  const seen = new Map();
-  (STORE.customCombos || []).forEach(c => { if (!seen.has(c.colorName)) seen.set(c.colorName, c); });
-  return Array.from(seen.values());
-}
-function czCombosForColor(colorName) {
-  return (STORE.customCombos || []).filter(c => c.colorName === colorName);
-}
-
-function openCustomizer() {
-  if (!(STORE.customCombos || []).length) {
-    return showToast('No custom options set up yet — check back soon', 'error');
-  }
-  populateCzColorSelect();
-  populateCzSizeSelect();
-  updateCzPhoto();
-  updateCzPrice();
-  openModal('customizeModal');
-}
-
-function populateCzColorSelect() {
-  const sel = document.getElementById('czColorSelect');
-  const colors = czColors();
-  sel.innerHTML = `<option value="">Select a color…</option>` +
-    colors.map(c => `<option value="${c.colorName}" ${czState.colorName===c.colorName?'selected':''}>${c.colorName}</option>`).join('');
-}
-function onCzColorChange(colorName) {
-  const combo = czColors().find(c => c.colorName === colorName);
-  czState.colorName = colorName;
-  czState.colorHex = combo ? combo.colorHex : '';
-  czState.comboId = null;
-  populateCzDesignSelect();
-  updateCzPhoto();
-  updateCzPrice();
-}
-function populateCzDesignSelect() {
-  const sel = document.getElementById('czDesignSelect');
-  const combos = czCombosForColor(czState.colorName);
-  if (!czState.colorName) {
-    sel.innerHTML = `<option value="">Select a color first…</option>`;
-    sel.disabled = true;
-    return;
-  }
-  sel.disabled = false;
-  sel.innerHTML = `<option value="">Select a print…</option>` +
-    combos.map(c => `<option value="${c.id}">${c.designName}${c.extraPrice?` (+${c.extraPrice} EGP)`:''}</option>`).join('');
-}
-function onCzDesignChange(comboId) {
-  czState.comboId = comboId || null;
-  updateCzPhoto();
-  updateCzPrice();
-}
-function populateCzSizeSelect() {
-  const sel = document.getElementById('czSizeSelect');
-  sel.innerHTML = `<option value="">Select a size…</option>` +
-    SIZES.map(s => `<option value="${s}">${s}</option>`).join('');
-}
-function onCzSizeChange(size) { czState.size = size; }
-
-function selectCzSide(side, el) {
-  czState.side = side;
-  document.querySelectorAll('#czSideToggle button').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  updateCzPhoto();
-}
-
-function updateCzPhoto() {
-  const img = document.getElementById('czPhotoImg');
-  const empty = document.getElementById('czPhotoEmpty');
-  const combo = (STORE.customCombos || []).find(c => c.id === czState.comboId);
-  let src = '';
-  if (combo) {
-    src = czState.side === 'back' ? (combo.finalBack || combo.finalFront) : combo.finalFront;
-  } else {
-    const blankCombo = czCombosForColor(czState.colorName)[0];
-    if (blankCombo) src = czState.side === 'back' ? (blankCombo.blankBack || blankCombo.blankFront) : blankCombo.blankFront;
-  }
-  if (src) {
-    img.classList.remove('show');
-    setTimeout(() => { img.src = src; img.classList.add('show'); }, 60);
-    empty.style.display = 'none';
-  } else {
-    img.classList.remove('show'); empty.style.display = 'flex';
-    empty.textContent = czState.colorName ? 'No photo for this side yet' : 'Pick a shirt color to start →';
-  }
-}
-
-function changeCzQty(d) {
-  czState.qty = Math.max(1, czState.qty + d);
-  document.getElementById('czQty').textContent = czState.qty;
-  updateCzPrice();
-}
-function updateCzPrice() {
-  const base = Number(STORE.settings.CustomShirtPrice || 1200);
-  const combo = (STORE.customCombos || []).find(c => c.id === czState.comboId);
-  const unit = base + (combo ? combo.extraPrice : 0);
-  document.getElementById('czPrice').textContent = (unit * czState.qty).toLocaleString() + ' EGP';
-}
-
-function addCustomToCart() {
-  const combo = (STORE.customCombos || []).find(c => c.id === czState.comboId);
-  if (!combo) return showToast('Please choose a print', 'error');
-  if (!czState.size) return showToast('Please choose a size', 'error');
-  const base = Number(STORE.settings.CustomShirtPrice || 1200);
-  const price = base + combo.extraPrice;
-  const note = document.getElementById('czNote').value.trim();
-  cart.push({
-    type: 'custom', name: `Custom Tee — ${combo.colorName} · ${combo.designName}`,
-    image: combo.finalFront, price, qty: czState.qty, size: czState.size, note
-  });
-  saveCart(); updateCartUI();
-  closeModal('customizeModal');
-  showToast('Added to cart — Custom Tee');
-  czState = { colorName:'', colorHex:'', comboId:null, size:'', qty:1, side:'front' };
-  document.getElementById('czQty').textContent = 1;
-  document.getElementById('czNote').value = '';
-  document.querySelectorAll('#czSideToggle button').forEach((b,i) => b.classList.toggle('active', i===0));
 }
 
 boot();
